@@ -1,7 +1,7 @@
 ## Deployment
 
 ```
-cp .env.local.example to .env.local
+cp .env.local.live to .env.local
 npm run dev
 ```
 
