@@ -42,28 +42,5 @@ export default async function contact(req, res) {
   res.writeHead(307, { Location: '/contact?posted=true' })
   res.end()
 
-  try {
-    const captchaToken = req?.query?.['g-recaptcha-response']
-    // console.log({ captchaToken })
-    if (!captchaToken) {
-      throw new Error('g-recaptcha-response required!')
-    }
-    const remoteip = requestIp.getClientIp(req)
-    const body = `secret=${CAPTCHA_SEVER_KEY}&response=${captchaToken}&remoteip=${remoteip}`
-    // console.log({ body })
-    const resultCapcha = await fetch(VERIFY_URL, {
-      method: 'POST',
-      headers: {
-        'Content-Type': 'application/x-www-form-urlencoded',
-      },
-      body,
-    }).then((res) => res.json())
-    // console.log({ resultCapcha })
-    if (resultCapcha?.success) {
-      await sendContactApi(req)
-    }
-    console.log('sent contact successfull')
-  } catch (error) {
-    console.error(error)
-  }
+  await sendContactApi(req)
 }
