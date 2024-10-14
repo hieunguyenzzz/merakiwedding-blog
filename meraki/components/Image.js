@@ -1,7 +1,6 @@
 import { getThumb } from '@providers/tinacms/helpers'
 import NextImage from 'next/image'
 
-
 // @todo replace the url to the one on env
 const myLoader = ({ src, width, quality }) => {
   if (
@@ -16,7 +15,6 @@ const myLoader = ({ src, width, quality }) => {
     return `/_next/image?url=${src}&w=${width}&q=${quality || 80}`
   }
 }
-
 
 export const Image = ({
   src,
@@ -47,7 +45,7 @@ export const Image = ({
     <NextImage
       key={src}
       loader={myLoader}
-      layout="fill"
+      layout={rest.layout || 'fill'}
       src={(src && src) || '/logo.png'}
       alt={alt || 'Meraki Image'}
       sizes={sizes}

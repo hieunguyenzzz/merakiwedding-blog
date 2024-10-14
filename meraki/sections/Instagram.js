@@ -41,7 +41,7 @@ export const Instagram = () => {
           <div className="grid w-full grid-cols-3 gap-1 lg:grid-cols-6 lg:gap-3 lg:flex-wrap ">
             {(data || get('app.data.instagram', [])).map((item, i) => {
               const src = item.image
-              if (!src || i >= 9) return null
+              if (!src || i >= 6) return null
               if (i < 6)
                 return (
                   <Link
