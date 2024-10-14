@@ -50,13 +50,14 @@ export const Instagram = () => {
                     className="transition-transform transform group">
                     <div className="relative w-full overflow-hidden bg-element-4">
                       <div style={{ paddingTop: '100%' }}></div>
-                      <img
+                      <Image
                         className="absolute inset-0 object-cover w-full h-full transition-transform duration-1000 transform scale-100 group-hover:scale-105"
                         alt={item.alt}
                         layout="fill"
                         sizes="(max-width: 600px) 245px,
                       245px"
-                        src={item.image}></img>
+                        src={item.image}
+                      />
                     </div>
                   </Link>
                 )
