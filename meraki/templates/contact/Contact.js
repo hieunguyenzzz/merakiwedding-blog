@@ -283,6 +283,10 @@ const Contact = ({ source, preview }) => {
   const [hidePosted, setHidePosted] = useState(false)
   useEffect(() => {
     if (posted) {
+      window.umami?.trackEvent('contact_us', {
+        form_type: 'contact',
+        location: 'contact_page'
+      });
     }
   }, [posted])
   useEffect(() => {
