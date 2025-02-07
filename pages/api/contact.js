@@ -46,30 +46,28 @@ const sendContactApi = async (req) => {
     text += `${property}: ${query[property]} ` + '\n'
   }
 
-  const mailjet = require('node-mailjet').connect(
-    process.env.MJ_APIKEY_PUBLIC,
-    process.env.MJ_APIKEY_PRIVATE
-  )
+  const nodemailer = require('nodemailer')
 
-  const request = mailjet.post('send', { version: 'v3.1' }).request({
-    Messages: [
-      {
-        From: {
-          Email: 'form@merakiweddingplanner.com',
-          Name: 'Meraki Contact Form',
-        },
-        To: [
-          {
-            Email:
-              process.env.STRAPI_EMAIL_TO || 'contact@merakiweddingplanner.com',
-            Name: 'Meraki',
-          },
-        ],
-        Subject: 'Meraki Contact From',
-        TextPart: text,
-      },
-    ],
+  // Create transporter using Zoho SMTP
+  const transporter = nodemailer.createTransport({
+    host: 'smtp.zoho.com',
+    port: 465,
+    secure: true, // use SSL
+    auth: {
+      user: process.env.ZOHO_EMAIL,
+      pass: process.env.ZOHO_PASSWORD
+    }
   })
+
+  // Send email
+  const info = await transporter.sendMail({
+    from: `"Meraki Contact Form" <${process.env.ZOHO_EMAIL}>`,
+    to: process.env.STRAPI_EMAIL_TO || 'contact@merakiweddingplanner.com',
+    subject: 'Meraki Contact Form',
+    text: text
+  })
+
+  return info
 }
 
 export default async function contact(req, res) {
@@ -98,7 +96,7 @@ export default async function contact(req, res) {
     // console.log({ resultCapcha })
     if (resultCapcha?.success) {
       Promise.all([
-        //sendContactApi(req),
+        sendContactApi(req),
         saveToSupabase(req.query)
       ])
         .then(([emailResult, supabaseResult]) => {
