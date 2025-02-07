@@ -9,7 +9,7 @@ const saveToSupabase = async (formData) => {
   // Parse numeric values
   const guestCount = formData.approximate ? parseInt(formData.approximate) : null
   const budgetValue = formData.budget ? parseFloat(formData.budget) : null
-  
+
   // Format wedding date to match date type
   const weddingDate = formData.weddingDate ? new Date(formData.weddingDate).toISOString() : null
 
