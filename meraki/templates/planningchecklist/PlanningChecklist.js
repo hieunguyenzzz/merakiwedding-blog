@@ -1,4 +1,3 @@
-
 import Button from "@components/button";
 import Layout from "@components/layout";
 import SourceProvider, { useSource } from "@providers/source";
@@ -45,7 +44,13 @@ const Blocks = () => {
         </div>}
       </div>
       <div className="w-full flex justify-center pt-12">
-        <Button type="submit" style={{ minWidth: '120px', padding: '0.5rem 2rem' }} size={'large'} type="submit">{get('data.buttonText')}</Button>
+        <Button
+          type="submit"
+          style={{ minWidth: '120px', padding: '0.5rem 2rem' }}
+          size={'large'}
+        >
+          {get('data.buttonText')}
+        </Button>
       </div>
     </form>
   </div>
