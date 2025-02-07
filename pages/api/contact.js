@@ -97,11 +97,25 @@ export default async function contact(req, res) {
     }).then((res) => res.json())
     // console.log({ resultCapcha })
     if (resultCapcha?.success) {
-      await Promise.all([
-        sendContactApi(req),
+      Promise.all([
+        //sendContactApi(req),
         saveToSupabase(req.query)
       ])
-      console.log('Contact form submitted successfully')
+        .then(([emailResult, supabaseResult]) => {
+          console.log('Contact form submitted successfully', {
+            email: emailResult,
+            database: supabaseResult
+          })
+        })
+        .catch(error => {
+          if (error.message.includes('supabase')) {
+            console.error('Database error:', error)
+          } else if (error.message.includes('mailjet')) {
+            console.error('Email error:', error)
+          } else {
+            console.error('Error submitting form:', error)
+          }
+        })
     }
   } catch (error) {
     console.error('Error processing contact form:', error)
