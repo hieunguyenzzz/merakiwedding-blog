@@ -9,8 +9,8 @@
   "prettier.singleQuote": true,
   "prettier.jsxBracketSameLine": true,
   "editor.codeActionsOnSave": {
-    "source.organizeImports": true,
-    "source.fixAll.eslint": true
+    "source.organizeImports": "explicit",
+    "source.fixAll.eslint": "explicit"
   },
   "editor.formatOnSave": true
 }
