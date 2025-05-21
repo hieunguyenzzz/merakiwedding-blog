@@ -13,8 +13,6 @@ services:
   nginx:
     image: nginx:alpine
     container_name: merakiwedding-nginx
-    ports:
-      - "80:80"
     volumes:
       - ./nginx/nginx.conf:/etc/nginx/nginx.conf:ro
       - ./public/uploads:/var/www/hieunguyen/data/www/merakiweddingplanner.com:ro
